@@ -1,0 +1,17 @@
+[
+  "total_court_executions",
+  "recent_court_executions",
+  "total_overdue_tax",
+  "total_admin_penalties",
+  "recent_admin_penalties",
+  "total_legal_proceedings",
+  "recent_legal_proceedings",
+  "total_case_filings",
+  "total_corporate_changes",
+  "recent_corporate_changes",
+  "total_trademarks",
+  "total_patents",
+  "total_copyrights",
+  "total_certifications",
+  "total_ip_score"
+]

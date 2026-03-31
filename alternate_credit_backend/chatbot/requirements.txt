@@ -1,0 +1,21 @@
+# AI Credit Scoring Chatbot — dependencies
+# Install with: pip install -r requirements.txt
+
+# RAG core
+langchain>=0.1.0
+langchain-community>=0.0.20
+chromadb>=0.4.0
+sentence-transformers>=2.2.0
+rank-bm25>=0.2.2
+
+# API
+fastapi>=0.110.0
+uvicorn>=0.27.0
+pydantic>=2.0.0
+
+# LLM
+ollama>=0.1.7
+
+# Already in your project venv (listed for completeness)
+# numpy
+# pandas

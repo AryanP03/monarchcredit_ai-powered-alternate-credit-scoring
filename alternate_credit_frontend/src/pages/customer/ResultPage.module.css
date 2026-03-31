@@ -1,0 +1,507 @@
+.page {
+  min-height: 100vh;
+  background: var(--ink-8);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 28px;
+  padding-top: 36px;
+  padding-bottom: 60px;
+  align-items: start;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Status banner ────────────────────────────────────────── */
+.statusBanner {
+  border-radius: var(--r-xl);
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  animation: fadeUp 0.45s var(--ease) both;
+}
+
+.statusBannerApproved {
+  background: var(--success-bg);
+  border: 1px solid var(--success-bd);
+}
+
+.statusBannerRejected {
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-bd);
+}
+
+.statusIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.statusBannerApproved .statusIcon {
+  background: var(--success-bg);
+  color: var(--success-txt);
+  border: 2px solid var(--success-bd);
+}
+
+.statusBannerRejected .statusIcon {
+  background: var(--danger-bg);
+  color: var(--danger-txt);
+  border: 2px solid var(--danger-bd);
+}
+
+.statusText { flex: 1; }
+
+.statusTitle {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+
+.statusBannerApproved .statusTitle { color: var(--success-txt); }
+.statusBannerRejected .statusTitle { color: var(--danger-txt); }
+
+.statusSub {
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.statusBannerApproved .statusSub { color: #166534; }
+.statusBannerRejected .statusSub { color: #9f1239; }
+
+.statusAppId {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.statusAppIdLabel {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  color: var(--ink-4);
+}
+
+.statusAppIdVal {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.5px;
+}
+
+/* ── Shared card ──────────────────────────────────────────── */
+.loanCard,
+.rejectedCard,
+.shapCard,
+.nextStepsCard {
+  background: var(--white);
+  border: 1px solid var(--ink-6);
+  border-radius: var(--r-xl);
+  padding: 28px;
+  animation: fadeUp 0.5s var(--ease) 0.08s both;
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 18px;
+  letter-spacing: -0.2px;
+}
+
+/* ── Loan grid ────────────────────────────────────────────── */
+.loanGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--ink-6);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.loanRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--ink-7);
+  border-right: 1px solid var(--ink-7);
+}
+
+.loanRow:nth-child(2n) { border-right: none; }
+.loanRow:nth-last-child(-n+2) { border-bottom: none; }
+
+.loanLabel {
+  font-size: 11px;
+  color: var(--ink-4);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-weight: 500;
+}
+
+.loanValue {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.2px;
+}
+
+/* ── EMI timeline ─────────────────────────────────────────── */
+.emiTimeline {
+  border: 1px solid var(--ink-6);
+  border-radius: var(--r-lg);
+  padding: 16px 18px;
+  background: var(--ink-8);
+}
+
+.emiTimelineLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.emiBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 56px;
+  margin-bottom: 10px;
+}
+
+.emiBar {
+  flex: 1;
+  background: var(--blue-light);
+  border-radius: 3px 3px 0 0;
+  border-bottom: 2px solid var(--blue);
+  transition: background 0.2s;
+}
+
+.emiBar:hover { background: var(--blue-mid); }
+
+.emiTimelineMeta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--ink-4);
+}
+
+/* ── Rejected reasons ─────────────────────────────────────── */
+.reasonsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reasonItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+
+.reasonDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--danger);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+/* ── SHAP card ────────────────────────────────────────────── */
+.shapCard { animation-delay: 0.14s; }
+
+.shapCardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 0;
+}
+
+.shapCardHead .cardTitle { margin-bottom: 4px; }
+
+.shapCardSub {
+  font-size: 13px;
+  color: var(--ink-3);
+  margin-bottom: 20px;
+}
+
+.shapList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.shapRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.shapLeft {
+  width: 200px;
+  flex-shrink: 0;
+}
+
+.shapFeature {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.shapDesc {
+  display: block;
+  font-size: 11px;
+  color: var(--ink-4);
+  line-height: 1.4;
+}
+
+.shapBarWrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.shapBarTrack {
+  flex: 1;
+  height: 7px;
+  background: var(--ink-7);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.shapBarFill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.8s var(--ease);
+  animation: barGrow 0.9s var(--ease) 0.3s both;
+}
+
+@keyframes barGrow {
+  from { width: 0 !important; }
+}
+
+.shapVal {
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 32px;
+  text-align: right;
+}
+
+.shapNote {
+  font-size: 12px;
+  color: var(--ink-4);
+  line-height: 1.6;
+  border-top: 1px solid var(--ink-7);
+  padding-top: 14px;
+}
+
+/* ── Next steps ───────────────────────────────────────────── */
+.nextStepsCard { animation-delay: 0.2s; }
+
+.nextStepsList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.nextStep {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.nextStepNum {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--blue-light);
+  color: var(--blue-deep);
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nextStepText {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.55;
+  padding-top: 3px;
+}
+
+.reapplyNote {
+  font-size: 13px;
+  color: var(--ink-3);
+  background: var(--ink-8);
+  border-radius: var(--r-md);
+  padding: 12px 16px;
+  border: 1px solid var(--ink-6);
+}
+
+/* ── Sidebar ──────────────────────────────────────────────── */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.downloadCard {
+  background: var(--white);
+  border: 1px solid var(--ink-6);
+  border-radius: var(--r-xl);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: fadeUp 0.5s var(--ease) 0.1s both;
+}
+
+.downloadIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-lg);
+  background: var(--blue-light);
+  color: var(--blue-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.downloadTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.downloadSub {
+  font-size: 13px;
+  color: var(--ink-3);
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+.downloadBtn {
+  width: 100%;
+  justify-content: center;
+  gap: 8px;
+}
+
+.downloadBtn:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
+
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: var(--white);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.detailsCard {
+  background: var(--white);
+  border: 1px solid var(--ink-6);
+  border-radius: var(--r-xl);
+  padding: 20px 22px;
+  animation: fadeUp 0.5s var(--ease) 0.16s both;
+}
+
+.detailsTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; 
+  padding: 8px 0;
+  border-bottom: 1px solid var(--ink-7);
+  gap: 12px;
+}
+
+.detailRow:last-child { border-bottom: none; }
+
+.detailLabel {
+  font-size: 12px;
+  color: var(--ink-4);
+}
+
+.detailValue {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  text-align: right;
+
+  max-width: 60%;              
+  word-break: break-all;       
+  overflow-wrap: anywhere;     
+}
+
+.approvedText { color: var(--success-txt) !important; }
+.rejectedText { color: var(--danger-txt)  !important; }
+
+.actionsCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fadeUp 0.5s var(--ease) 0.22s both;
+}
+
+.homeLink {
+  text-align: center;
+  font-size: 13px;
+  color: var(--ink-3);
+  display: block;
+}
+
+.homeLink:hover { color: var(--blue); }
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .statusBanner { flex-wrap: wrap; }
+  .statusAppId { align-items: flex-start; }
+  .shapRow { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .shapLeft { width: 100%; }
+  .shapBarWrap { width: 100%; }
+}

@@ -1,0 +1,60 @@
+PROJECT: AI-Powered Alternate Credit Scoring System
+Problem Statement: Barclays Innovation Challenge
+
+PROBLEM BEING SOLVED
+Millions of individuals and MSMEs (Micro, Small and Medium Enterprises) lack traditional credit histories, making it impossible for banks to assess their creditworthiness. This leads to financial exclusion. Traditional credit scoring models are rigid and ignore alternative data sources. This project builds an AI-powered credit scoring system using machine learning to evaluate creditworthiness from alternative data — transaction patterns, utility payments, business activity, e-commerce sales — to provide fair access to loans.
+
+TWO PIPELINES IN THIS PROJECT
+
+Pipeline 1 — MSME Alternate Credit Scoring
+- Scores small and medium businesses (MSMEs) for loan default risk
+- Uses 30 original features + 7 synthetic behavioral features (37 total)
+- Models: Random Forest + XGBoost + LightGBM weighted soft-vote ensemble
+- Ensemble weights: RF=0.25, XGB=0.40, LGBM=0.35
+- Decision threshold: 0.14 (base), 0.085 for Medium-size companies (fairness intervention)
+- SMOTE applied on training data only (sampling_strategy=0.3, 3.3:1 ratio)
+- Database: DuckDB (msme.duckdb), tables: msme_train, msme_test
+- Target column: Label (1=default, 0=healthy)
+- Training samples: 1,667 after SMOTE | Test samples: 342 (real-world distribution)
+
+Pipeline 2 — Individual Credit Scoring (MonarchCredit)
+- Scores individual borrowers for financial distress
+- Features: 61 SME engineered features (SME_Revenue_Volatility_Index, SME_Working_Capital_Adequacy_Ratio, etc.)
+- Models: Random Forest + XGBoost + Logistic Regression in a Stacking ensemble
+- Stacking: 5-fold cross-validation OOF predictions, meta-learner LogisticRegression (C=0.05)
+- Calibration: Isotonic calibration on 15% held-out split
+- Threshold optimization: F1-metric based, min_recall=0.60
+- Hyperparameter tuning: Optuna (20 trials RF, 50 trials XGB, 15 trials LR)
+- Database: DuckDB (credit_warehouse.duckdb), tables: individual_training_data, individual_test_data, indian_train_data, indian_test_data
+- Target column: TARGET (individual pipeline), Financial_Distress (Indian dataset)
+- Also supports Indian screener dataset (439 companies, 10 years, 60 features)
+
+TECHNOLOGY STACK
+- Language: Python
+- ML Libraries: scikit-learn, XGBoost, LightGBM, imbalanced-learn (SMOTE)
+- Hyperparameter Tuning: Optuna
+- Database: DuckDB (local, fast, SQL)
+- Experiment Tracking: MLflow
+- Fairness: fairlearn, SHAP
+- Data versioning: DVC
+
+PROJECT STRUCTURE
+data/
+  raw_data/              - raw CSV files
+  processed_data/        - cleaned data
+  msme_preprocessed.csv  - main MSME dataset
+DuckDB/
+  msme.duckdb            - MSME database
+  creatingTable_and_inserting_msme_train_data.py
+  injecting_msme_test_data.py
+warehouse/
+  credit_warehouse.duckdb - Individual/Indian database
+src/training/
+  train_msme.py          - MSME training pipeline
+  train.py               - Individual credit scoring pipeline
+  msme_shap_fairness.py  - SHAP analysis + fairness interventions
+models/                  - saved model files (.pkl, .json)
+reports/msme/            - fairness plots, ROC curves, feature importance
+mlruns/                  - MLflow experiment logs
+params_msme.yaml         - MSME hyperparameters and config
+params.yaml              - Individual pipeline hyperparameters

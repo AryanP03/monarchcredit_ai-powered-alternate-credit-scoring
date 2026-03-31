@@ -1,0 +1,290 @@
+.page {
+  min-height: 100vh;
+  background: var(--ink-8);
+  display: flex;
+  flex-direction: column;
+}
+
+.topBar {
+  background: var(--white);
+  border-bottom: 1px solid var(--ink-6);
+  padding: 0 32px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topLogo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.logoMark {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.appIdBadge {
+  font-size: 12px;
+  color: var(--ink-3);
+  background: var(--ink-7);
+  border: 1px solid var(--ink-6);
+  border-radius: 99px;
+  padding: 4px 14px;
+}
+
+.appIdBadge strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--ink-6);
+  border-radius: var(--r-2xl);
+  padding: 44px 40px;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: fadeUp 0.5s var(--ease) both;
+}
+
+/* ── Icon ring ────────────────────────────────────────────── */
+.iconRing {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--blue-light);
+  border: 2px solid rgba(0,174,239,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+  position: relative;
+  transition: all 0.4s var(--ease);
+}
+
+.iconRingDone {
+  background: var(--success-bg);
+  border-color: var(--success-bd);
+  color: var(--success-txt);
+}
+
+.pulseRing {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid var(--blue);
+  border-top-color: transparent;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.checkIcon {
+  animation: popIn 0.4s var(--ease) both;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.4); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* ── Text ─────────────────────────────────────────────────── */
+.title {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.4px;
+  margin-bottom: 8px;
+}
+
+.sub {
+  font-size: 14px;
+  color: var(--ink-3);
+  line-height: 1.65;
+  max-width: 340px;
+  margin-bottom: 28px;
+}
+
+/* ── App ID box ───────────────────────────────────────────── */
+.appIdBox {
+  background: var(--ink-8);
+  border: 1px solid var(--ink-6);
+  border-radius: var(--r-lg);
+  padding: 14px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.appIdLabel {
+  font-size: 11px;
+  color: var(--ink-4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.appIdValue {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 1px;
+}
+
+.appIdHint {
+  font-size: 11px;
+  color: var(--ink-4);
+}
+
+/* ── Progress ─────────────────────────────────────────────── */
+.progressWrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.progressBar {
+  flex: 1;
+  height: 6px;
+  background: var(--ink-7);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--blue);
+  border-radius: 99px;
+  transition: width 0.6s var(--ease);
+}
+
+.progressFillDone {
+  background: var(--success);
+}
+
+.progressPct {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-3);
+  min-width: 32px;
+  text-align: right;
+}
+
+/* ── Steps ────────────────────────────────────────────────── */
+.steps {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--r-md);
+  background: var(--ink-8);
+  transition: background 0.2s, color 0.2s;
+}
+
+.stepActive {
+  background: var(--blue-light);
+}
+
+.stepDone {
+  background: var(--success-bg);
+}
+
+.stepIndicator {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.step:not(.stepDone):not(.stepActive) .stepIndicator {
+  background: var(--ink-6);
+}
+
+.stepDone .stepIndicator {
+  background: var(--success-bg);
+  color: var(--success-txt);
+  border: 1px solid var(--success-bd);
+}
+
+.stepActive .stepIndicator {
+  background: var(--blue-light);
+}
+
+.stepSpinner {
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(0,174,239,0.3);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.stepDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink-5);
+}
+
+.stepLabel {
+  font-size: 13px;
+  color: var(--ink-3);
+  font-weight: 400;
+}
+
+.stepActive .stepLabel {
+  color: var(--blue-deep);
+  font-weight: 500;
+}
+
+.stepDone .stepLabel {
+  color: var(--success-txt);
+}
+
+.doneNote {
+  font-size: 13px;
+  color: var(--ink-4);
+  margin-top: 16px;
+  animation: fadeIn 0.4s ease both;
+}

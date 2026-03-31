@@ -1,0 +1,191 @@
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--white);
+  border-right: 1px solid var(--ink-6);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 18px 16px;
+  border-bottom: 1px solid var(--ink-7);
+}
+
+.logoMark {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logoText {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.2px;
+}
+
+.logoSub {
+  font-size: 10px;
+  color: var(--ink-4);
+  margin-top: 1px;
+}
+
+/* Nav */
+.nav {
+  padding: 10px 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--r-md);
+  font-size: 13px;
+  color: var(--ink-3);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  font-weight: 400;
+}
+
+.navItem:hover {
+  background: var(--ink-7);
+  color: var(--ink);
+}
+
+.navItemActive {
+  background: var(--blue-light);
+  color: var(--blue-deep);
+  font-weight: 500;
+}
+
+.navItemActive .navIcon {
+  color: var(--blue);
+}
+
+.navIcon {
+  color: var(--ink-4);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+}
+
+.navItem:hover .navIcon { color: var(--ink-3); }
+
+/* Model status */
+.modelStatus {
+  padding: 12px 16px;
+  border-top: 1px solid var(--ink-7);
+  border-bottom: 1px solid var(--ink-7);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modelStatusRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modelDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse 2.5s ease infinite;
+}
+
+.modelDotGreen { background: var(--success); }
+.modelDotRed   { background: var(--danger); }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.modelStatusLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.retrain {
+  background: var(--danger-bg);
+  color: var(--danger-txt);
+  border: 1px solid var(--danger-bd);
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: var(--r-sm);
+  width: 100%;
+}
+
+/* User */
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+}
+
+.userAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--blue-light);
+  color: var(--blue-deep);
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.userInfo { flex: 1; min-width: 0; }
+
+.userName {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userRole {
+  font-size: 11px;
+  color: var(--ink-4);
+}
+
+.signOut {
+  background: none;
+  border: none;
+  color: var(--ink-4);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+}
+
+.signOut:hover { color: var(--danger); }

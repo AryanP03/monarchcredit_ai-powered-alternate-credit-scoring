@@ -1,0 +1,336 @@
+.page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+/* ── Left brand panel ─────────────────────────────────────── */
+.left {
+  background: var(--blue);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 48px 48px;
+}
+.buttonWrapper{
+  margin-top: 8px;
+}
+.serverError {
+  color: #e53935;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.backLogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  z-index: 2;
+  position: relative;
+  color:white;
+  font-size: 23px;
+
+}
+
+.logoMark {
+  width: 30px;
+  height: 40px;
+  border-radius: 9px;
+  background: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.backLogo span:last-child {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: -0.3px;
+}
+
+.leftContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 48px;
+  position: relative;
+  z-index: 2;
+}
+
+.leftQuote {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.leftQuoteBar {
+  width: 3px;
+  min-height: 80px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 99px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.leftQuoteText {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.leftQuoteSrc {
+  display: block;
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 12px;
+  font-style: normal;
+  letter-spacing: 0.3px;
+}
+
+.leftStats {
+  display: flex;
+  gap: 32px;
+}
+
+.leftStat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.leftStatN {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: -0.5px;
+}
+
+.leftStatL {
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+}
+
+.leftBg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.leftBgCircle {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+  bottom: -180px;
+  right: -160px;
+}
+
+/* ── Right form panel ─────────────────────────────────────── */
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+  background: var(--white);
+}
+
+.formWrap {
+  width: 100%;
+  max-width: 380px;
+}
+
+/* Mode tabs */
+.modeTabs {
+  display: flex;
+  background: var(--ink-7);
+  border-radius: var(--r-lg);
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 32px;
+}
+
+.modeTab {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  border-radius: var(--r-md);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-3);
+  transition: all 0.2s var(--ease);
+  cursor: pointer;
+}
+
+.modeTabActive {
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+/* Form head */
+.formHead {
+  margin-bottom: 28px;
+}
+
+.formTitle {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.formSub {
+  font-size: 14px;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+
+/* Form fields */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.inputError {
+  border-color: var(--danger) !important;
+}
+
+.inputError:focus {
+  box-shadow: 0 0 0 3px rgba(244,63,94,0.1) !important;
+}
+
+.err {
+  font-size: 12px;
+  color: var(--danger);
+  margin-top: 5px;
+}
+
+.pwRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.pwRow label {
+  margin-bottom: 0;
+}
+
+.forgot {
+  font-size: 12px;
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.forgot:hover { text-decoration: underline; }
+
+/* Submit */
+.submitBtn {
+  width: 100%;
+  justify-content: center;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--r-lg);
+  margin-top: 4px;
+  min-height: 44px;
+}
+
+/* Spinner */
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: var(--white);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Or divider */
+.orRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 16px;
+}
+
+.orLine {
+  flex: 1;
+  height: 1px;
+  background: var(--ink-6);
+}
+
+.orText {
+  font-size: 12px;
+  color: var(--ink-4);
+}
+
+/* Switch */
+.switchText {
+  text-align: center;
+  font-size: 13px;
+  color: var(--ink-3);
+  margin-bottom: 16px;
+}
+
+.switchBtn {
+  background: none;
+  border: none;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+}
+
+.switchBtn:hover { text-decoration: underline; }
+
+/* Manager link */
+.managerLink {
+  text-align: center;
+  font-size: 12px;
+  color: var(--ink-4);
+  padding-top: 16px;
+  border-top: 1px solid var(--ink-7);
+}
+
+.managerLink a {
+  color: var(--ink-3);
+  font-weight: 500;
+}
+
+.managerLink a:hover { color: var(--blue); }
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .page { grid-template-columns: 1fr; }
+  .left { display: none; }
+  .right { padding: 40px 24px; }
+}

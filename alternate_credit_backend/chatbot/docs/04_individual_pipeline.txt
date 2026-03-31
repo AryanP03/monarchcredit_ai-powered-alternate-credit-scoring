@@ -1,0 +1,112 @@
+INDIVIDUAL CREDIT SCORING PIPELINE — MonarchCredit
+
+PURPOSE
+Scores individual borrowers (not businesses) for financial distress / default risk.
+Targets under-banked and unbanked individuals who lack traditional credit history.
+Uses 61 engineered SME features derived from alternative data sources.
+
+61 ENGINEERED FEATURES (SME_ prefix)
+Financial metrics:
+- SME_Revenue_Volatility_Index: variability in business revenue
+- SME_Working_Capital_Adequacy_Ratio: working capital vs liabilities
+- SME_Cash_Conversion_Efficiency: how efficiently cash is generated from operations
+- SME_Operating_Expense_Ratio: expenses as proportion of revenue
+- SME_Working_Capital_Cycle_Days: days to convert working capital
+- SME_Capital_Efficiency_Ratio: output per unit of capital invested
+- SME_Capital_Retention_Ratio: retained earnings ratio
+- SME_Gross_Profit_Proxy: estimated gross profit margin
+
+Risk and stress indicators:
+- SME_Business_Runway_Months: estimated months of operational runway
+- SME_Sector_Resilience_Rating: sector-level risk resilience score
+- SME_Sector_Monsoon_Stress: exposure to monsoon/seasonal stress (India-specific)
+- SME_Sector_Volatility_Stress: sector volatility exposure
+- SME_Sector_Economic_Cycle_Resilience: resilience to economic cycles
+- SME_Sector_Default_Density_Score: density of defaults in same sector
+- Liquidity_Risk_Index: composite liquidity risk
+- Financial_Pressure_Index: composite financial pressure
+- Credit_Stress_Index: credit-specific stress indicator
+- Repayment_Risk_Amplifier: risk amplifier based on repayment patterns
+
+Growth and market indicators:
+- SME_Income_Growth_Momentum: revenue growth trend
+- SME_Market_Expansion_Score: market expansion activity
+- SME_Business_Scalability_Index: scalability potential
+- SME_Technology_Adoption_Proxy: technology usage indicator
+- SME_Product_Diversification_Score: product line diversity
+- SME_Growth_Stability_Score: growth consistency
+
+Network and social indicators:
+- SME_Business_Network_Strength_Score: business relationship network
+- SME_Business_Social_Network_Risk: social network risk signals
+- SME_Regional_Business_Ecosystem_Quality: local business environment
+- SME_Industry_Competition_Pressure_Index: competitive pressure
+
+Credit behavior:
+- SME_Credit_Bureau_Inquiry_Velocity: frequency of credit inquiries
+- SME_Credit_Utilization_Intensity: credit utilization level
+- SME_Repayment_Plan_Instability: inconsistency in repayment
+- SME_Inquiry_Clustering_Score: clustering of multiple inquiries
+- SME_Business_Leverage_Spiral_Flag: flag for dangerous leverage trends
+
+Stability and documentation:
+- SME_Business_Longevity_Score: business age and track record
+- SME_Address_Stability_Business_Flag: address stability indicator
+- SME_Business_Documentation_Completeness: completeness of business docs
+- SME_Business_Asset_Backing_Ratio: assets backing the business
+- SME_Business_Skin_In_The_Game: owner investment commitment
+
+Composite scores (engineered):
+- Growth_Stability_Score: combined growth and stability
+- Operational_Resilience_Index: operational resilience composite
+- Asset_Support_Strength: asset-backed support strength
+- Cash_Conversion_Stability: stability of cash conversion
+- Credit_Dependency_Index: reliance on credit
+- Business_Stability_Score: overall business stability
+
+MODEL ARCHITECTURE — Stacking Ensemble
+Base models (Layer 1):
+1. Random Forest: 100-500 estimators, max_depth 4-12, class_weight=balanced_subsample
+2. XGBoost: 200-800 estimators, max_depth 3-7, learning_rate 0.005-0.10
+3. Logistic Regression: C range 0.0001-10, penalties l1/l2/elasticnet, solver=saga
+
+Meta-learner (Layer 2):
+- LogisticRegression with C=0.05 (tighter regularization)
+- passthrough=True — meta-learner sees raw features + base model probabilities
+- 5-fold OOF cross-validation for meta-feature generation
+
+Post-processing:
+- Isotonic calibration on 15% held-out split (maps scores to true default rates)
+- Threshold optimization on separate validation split (not training data)
+- Threshold metric: F1 (or precision with min_recall=0.60 constraint)
+
+HYPERPARAMETER TUNING (Optuna)
+- Random Forest: 20 trials, TPE sampler, MedianPruner
+- XGBoost: 50 trials (most complex search space)
+- Logistic Regression: 15 trials
+- Feature selection before tuning: variance_threshold=0.01, correlation_threshold=0.95
+- Sample 80,000 rows for tuning (from fit set only, after calibration split)
+
+DATABASE TABLES
+credit_warehouse.duckdb contains:
+- individual_training_data: main training table (TARGET column)
+- individual_test_data: main test table
+- indian_train_data: Indian screener dataset train split (292 rows, 60 features)
+- indian_test_data: Indian screener dataset test split (147 rows, 60 features)
+- indian_full_processed: full Indian dataset (439 companies, 10 years)
+- msme_training_data: MSME data with 61 SME features (TARGET column)
+- msme_test_data: MSME test data with 61 SME features
+
+INDIAN DATASET (dual-stream mode)
+- 439 company-year observations from Indian screener
+- 10 years of data: 2016-2025
+- 50 companies tracked
+- Target: Financial_Distress (1=distressed, 0=healthy)
+- Default rate: ~10% overall
+- Most distressed companies: Palash_Securities (60%), Reganto_Enterprises (60%)
+- Features: 60 financial ratio features
+
+MLFLOW EXPERIMENT
+- Experiment name: credit_scoring_individual
+- Registered model name: credit_score_individual_model
+- Logs: base model AUCs, stacking metrics, calibration quality, threshold value

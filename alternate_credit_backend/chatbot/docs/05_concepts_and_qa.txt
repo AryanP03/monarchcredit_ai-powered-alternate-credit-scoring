@@ -1,0 +1,134 @@
+KEY CONCEPTS AND TERMINOLOGY — AI Credit Scoring Project
+
+CREDIT SCORING TERMS
+
+Default / Label=1
+A company or individual that fails to repay a loan. In MSME pipeline: Label=1 means the company defaulted. In individual pipeline: TARGET=1 means financial distress.
+
+Recall (Sensitivity)
+Of all companies that actually defaulted, what percentage did the model correctly flag?
+Example: Recall=85% means the model caught 17 out of 20 real defaulters.
+Missing a defaulter (False Negative) = a bad loan approved = direct financial loss.
+High recall is critical for a credit scoring system — missing defaults is dangerous.
+
+Precision
+Of all companies the model flagged as risky, what percentage actually defaulted?
+Example: Precision=70.8% means 7 out of 24 flagged companies were false alarms.
+Low precision = healthy businesses wrongly rejected = financial exclusion.
+
+F1 Score
+Harmonic mean of precision and recall. F1 = 2 * (P * R) / (P + R)
+Best single metric when both precision and recall matter equally.
+Our target: F1 ≥ 78%. Current: 77.27% — just 0.73pp below target.
+
+AUC-ROC (Area Under ROC Curve)
+Measures how well the model ranks risky companies above safe ones.
+0.5 = random, 1.0 = perfect. Our model: 98.37% — excellent discrimination.
+High AUC but lower precision means the model ranks well but threshold tuning is needed.
+
+FAIRNESS TERMS
+
+Disparate Impact (DI)
+DI = (selection rate of disadvantaged group) / (selection rate of advantaged group)
+Legal standard (4/5ths rule): DI ≥ 0.80 for fair lending compliance.
+Our model DI = 0.331: Medium companies flagged at only 33% the rate of Small/Micro.
+After intervention (threshold 0.085): DI improved to ~0.52 — better but not yet compliant.
+
+Demographic Parity Difference (DP Diff)
+Difference in selection rates between groups. Target: < 0.10.
+Baseline: 0.1338 ⚠️ → After intervention: 0.077 ✅
+
+Equalized Odds Difference
+Difference in true positive rates (TPR) between groups. Target: < 0.10.
+Baseline: 0.0476 ✅ — this was already passing before any intervention.
+This means the model treats actual defaulters fairly regardless of company size.
+
+Proxy Bias
+When a model uses features that correlate with protected attributes (like company size)
+instead of genuine risk signals. Example: log_registered_capital correlates with company
+size — larger Medium companies have higher capital, so model learned "bigger = safer"
+even when actual risk is similar. SHAP analysis showed 55.8% of the disparity comes
+from proxy features, not genuine risk differences.
+
+SHAP (SHapley Additive exPlanations)
+A method to explain which features drove each individual prediction.
+SHAP value > 0: feature pushed toward predicting default
+SHAP value < 0: feature pushed toward predicting healthy
+Mean |SHAP| across all predictions = global feature importance.
+Used in this project to compare feature influence between Small/Micro and Medium groups,
+revealing that proxy features (size-correlated) drive most of the disparity.
+
+SMOTE (Synthetic Minority Oversampling Technique)
+Creates synthetic examples of the minority class (defaulters) to balance training data.
+Our config: sampling_strategy=0.3 means defaulters become 30% of healthy count.
+Applied ONLY on training data — never on test data (would cause data leakage).
+Without SMOTE: 82 defaulters vs 1,283 healthy = 6% positive rate (too imbalanced).
+After SMOTE: 384 defaulters vs 1,283 healthy = 23% positive rate (balanced for training).
+
+TECHNICAL TERMS
+
+DuckDB
+A fast, local SQL database that runs as a file (no server needed).
+Used to store training and test data cleanly. Two databases in this project:
+- msme.duckdb: MSME pipeline data (msme_train, msme_test tables)
+- credit_warehouse.duckdb: Individual pipeline, Indian dataset, MSME 61-feature version
+
+MLflow
+Experiment tracking tool. Logs model parameters, metrics, and artifacts for each run.
+Stored in mlruns/ folder. Access via: mlflow ui (opens at http://localhost:5000)
+
+DVC (Data Version Control)
+Tracks large data files in git without storing them directly. dvc.yaml defines pipeline stages.
+
+Stacking Ensemble
+Multi-level ensemble where base model predictions become features for a meta-learner.
+More powerful than simple averaging because meta-learner learns when to trust each base model.
+Used in individual pipeline. MSME uses simpler weighted soft-vote ensemble.
+
+Soft-Vote Ensemble
+Each model produces a probability; final probability = weighted average of all probabilities.
+Threshold applied to final probability for binary decision (default/healthy).
+Our MSME ensemble: prob = 0.25*RF + 0.40*XGB + 0.35*LGBM
+
+Isotonic Calibration
+Post-processing step that maps raw model probability scores to true default rates.
+Ensures that when model says "70% probability of default", about 70% actually default.
+Used in individual pipeline. MSME pipeline shows miscalibration in 40-80% bands.
+
+Optuna
+Hyperparameter optimization framework using Bayesian (TPE) search.
+More efficient than grid search — focuses trials on promising regions of parameter space.
+Used in individual pipeline for RF (20 trials), XGB (50 trials), LR (15 trials).
+
+COMMON QUESTIONS AND ANSWERS
+
+Q: Why does the model use 7 synthetic features?
+A: Real behavioral data (utility payments, tax compliance, digital payment ratios) would be
+available in production from bank feeds and government data. Since this is a research/competition
+project, these are simulated with realistic distributions calibrated to correlate with default
+status at safe levels (-0.15 to -0.45). They represent what the system would use in deployment.
+
+Q: Why is precision below target?
+A: Only 20 defaulters in the test set. With 7 false positives, precision = 17/(17+7) = 70.8%.
+Removing even 2 false positives would push precision to 77%+. The constraint is dataset size.
+The AUC-ROC of 98.37% shows the model ranks risk very accurately — the precision gap is a
+threshold placement problem, not a model quality problem.
+
+Q: Why can't DI reach 0.80?
+A: Medium companies are structurally assigned lower predicted probabilities because proxy
+features (capital size, employee count) correlate with company size. No threshold fix can
+overcome a model-level bias. The fix is removing those proxy features and retraining.
+The remaining 44.2% of the disparity is genuine (Medium companies really do default less).
+
+Q: What alternative data sources does this project use?
+A: The 7 synthetic behavioral features simulate: tax filing compliance, digital payment ratio,
+utility bill payments, loan repayment history, salary disbursement regularity, account balance
+volatility, and vendor payment delays. The individual pipeline uses 61 engineered features
+covering revenue volatility, working capital, credit behavior, sector stress, and business
+network signals — all derivable from alternative data without traditional credit bureau scores.
+
+Q: How does the two-pipeline approach serve financial inclusion?
+A: Pipeline 1 (MSME) targets small businesses that lack formal credit history.
+Pipeline 2 (Individual) targets under-banked individuals. Together they cover the full
+spectrum of financially excluded populations. Alternative data replaces the need for
+traditional credit scores, enabling loan access for the un-banked.

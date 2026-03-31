@@ -1,0 +1,632 @@
+.page {
+  min-height: 100vh;
+  background: var(--ink-8);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 28px;
+  padding-top: 40px;
+  padding-bottom: 60px;
+  align-items: start;
+}
+
+/* ── Greeting ─────────────────────────────────────────────── */
+.greeting {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.greetingAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--blue-light);
+  color: var(--blue-deep);
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 2px solid var(--white);
+  box-shadow: 0 0 0 2px var(--blue-light);
+}
+
+.greetingTitle {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.3px;
+  margin-bottom: 3px;
+}
+
+.greetingSub {
+  font-size: 14px;
+  color: var(--ink-3);
+}
+
+/* ── Upload card ──────────────────────────────────────────── */
+.uploadCard {
+  background: var(--white);
+  border: 1px solid var(--ink-6);
+  border-radius: var(--r-2xl);
+  padding: 32px;
+  margin-bottom: 16px;
+}
+
+.uploadCardHead {
+  margin-bottom: 24px;
+}
+
+.uploadCardTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 5px;
+  letter-spacing: -0.3px;
+}
+
+.uploadCardSub {
+  font-size: 13px;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+
+/* ── Drop zone ────────────────────────────────────────────── */
+.dropZone {
+  border: 2px dashed var(--ink-5);
+  border-radius: var(--r-xl);
+  padding: 48px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  background: var(--ink-8);
+  margin-bottom: 20px;
+}
+
+.dropZone:hover,
+.dropZoneDragging {
+  border-color: var(--blue);
+  background: var(--blue-light);
+}
+
+.dropZoneDragging .dropIcon {
+  color: var(--blue);
+  transform: scale(1.1);
+}
+
+.fileInput {
+  display: none;
+}
+
+.dropIcon {
+  color: var(--ink-4);
+  margin: 0 auto 14px;
+  transition: all 0.2s var(--ease);
+  width: fit-content;
+}
+
+.dropZone:hover .dropIcon {
+  color: var(--blue);
+}
+
+.dropPrimary {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+
+.dropSec {
+  font-size: 13px;
+  color: var(--ink-3);
+  margin-bottom: 10px;
+}
+
+.dropLink {
+  color: var(--blue);
+  font-weight: 500;
+}
+
+.dropHint {
+  font-size: 12px;
+  color: var(--ink-4);
+}
+
+/* ── Parse error ──────────────────────────────────────────── */
+.parseErr {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--danger-bg);
+  color: var(--danger-txt);
+  border: 1px solid var(--danger-bd);
+  border-radius: var(--r-lg);
+  padding: 12px 16px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+/* ── File preview ─────────────────────────────────────────── */
+.filePreview {
+  border: 1px solid var(--ink-6);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  margin-bottom: 20px;
+  animation: fadeIn 0.3s var(--ease);
+}
+
+.filePreviewHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--ink-8);
+  border-bottom: 1px solid var(--ink-6);
+}
+
+.fileIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-md);
+  background: var(--blue-light);
+  color: var(--blue-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fileInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.fileName {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fileSize {
+  font-size: 11px;
+  color: var(--ink-4);
+}
+
+.removeFile {
+  background: none;
+  border: none;
+  color: var(--ink-4);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  transition: color 0.15s, background 0.15s;
+}
+
+.removeFile:hover { color: var(--danger); background: var(--danger-bg); }
+
+.previewGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.previewRow {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--ink-7);
+  border-right: 1px solid var(--ink-7);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.previewRow:nth-child(2n) { border-right: none; }
+.previewRow:nth-last-child(-n+2) { border-bottom: none; }
+
+.previewLabel {
+  font-size: 11px;
+  color: var(--ink-4);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-weight: 500;
+}
+
+.previewValue {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.previewReady {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: var(--success-bg);
+  color: var(--success-txt);
+  font-size: 13px;
+  font-weight: 500;
+  border-top: 1px solid var(--success-bd);
+}
+
+/* ── Submit button ────────────────────────────────────────── */
+.submitBtn {
+  width: 100%;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--r-lg);
+}
+
+.submitBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: var(--white);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Info note ────────────────────────────────────────────── */
+.infoNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ink-3);
+  line-height: 1.55;
+  padding: 0 4px;
+}
+
+.infoNote svg { flex-shrink: 0; margin-top: 2px; color: var(--blue); }
+
+/* ── Sidebar ──────────────────────────────────────────────── */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Stepper */
+.stepper {
+  background: var(--white);
+  border: 1px solid var(--ink-6);
+  border-radius: var(--r-xl);
+  padding: 22px 22px 16px;
+}
+
+.stepperTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 20px;
+  letter-spacing: -0.1px;
+}
+
+.stepperList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.stepperItem {
+  display: flex;
+  gap: 14px;
+}
+
+.stepperLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.stepperDot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.stepperDotActive {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.stepperDotIdle {
+  background: var(--ink-7);
+  color: var(--ink-4);
+  border: 1px solid var(--ink-6);
+}
+
+.stepperLine {
+  width: 1px;
+  flex: 1;
+  background: var(--ink-6);
+  min-height: 22px;
+  margin: 4px 0;
+}
+
+.stepperText {
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stepperLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-3);
+}
+
+.stepperLabelActive {
+  color: var(--ink);
+}
+
+.stepperDesc {
+  font-size: 12px;
+  color: var(--ink-4);
+}
+
+/* Check card */
+.checkCard {
+  background: var(--white);
+  border: 1px solid var(--ink-6);
+  border-radius: var(--r-xl);
+  padding: 22px;
+}
+
+.checkTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.checkList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+.checkDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+  flex-shrink: 0;
+}
+
+/* Privacy note */
+.privacyNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--ink-3);
+  line-height: 1.55;
+  padding: 14px 16px;
+  background: var(--blue-light);
+  border-radius: var(--r-lg);
+}
+
+.privacyNote svg { flex-shrink: 0; margin-top: 1px; color: var(--blue-deep); }
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    order: -1;
+  }
+}
+/* ── Loan type selection ──────────────────────────────────── */
+.selectStage { animation: fadeUp 0.4s var(--ease) both; }
+
+.selectHead { margin-bottom: 24px; }
+
+.selectTitle {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+}
+
+.selectSub { font-size: 14px; color: var(--ink-3); line-height: 1.55; }
+
+.typeGrid { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+
+.typeCard {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--white);
+  border: 1.5px solid var(--ink-6);
+  border-radius: var(--r-xl);
+  padding: 22px 24px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: border-color 0.18s var(--ease), background 0.18s var(--ease), transform 0.18s var(--ease);
+}
+
+.typeCard:hover {
+  border-color: var(--blue);
+  background: var(--blue-light);
+  transform: translateY(-2px);
+}
+
+.typeCard:hover .typeCardArrow { color: var(--blue); transform: translateX(4px); }
+
+.typeCardIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--r-lg);
+  background: var(--blue-light);
+  color: var(--blue-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.18s, color 0.18s;
+}
+
+.typeCard:hover .typeCardIcon { background: var(--blue); color: var(--white); }
+
+.typeCardBody { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+
+.typeCardLabel { font-size: 16px; font-weight: 600; color: var(--ink); letter-spacing: -0.2px; }
+
+.typeCardDesc { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
+
+.typeCardModel {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--blue-deep);
+  background: var(--blue-light);
+  border-radius: 99px;
+  padding: 3px 10px;
+  width: fit-content;
+  margin-top: 4px;
+}
+
+.typeCardArrow {
+  color: var(--ink-4);
+  flex-shrink: 0;
+  transition: color 0.18s, transform 0.18s var(--ease);
+}
+
+.selectNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ink-3);
+  line-height: 1.55;
+  padding: 0 4px;
+}
+
+.selectNote svg { flex-shrink: 0; margin-top: 2px; color: var(--blue); }
+
+/* ── Loan type banner ─────────────────────────────────────── */
+.loanTypeBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--blue-light);
+  border: 1px solid rgba(0,174,239,0.2);
+  border-radius: var(--r-xl);
+  padding: 14px 20px;
+  margin-bottom: 16px;
+  animation: fadeUp 0.35s var(--ease) both;
+}
+
+.loanTypeBannerLeft { display: flex; align-items: center; gap: 14px; }
+
+.loanTypeBannerIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--r-md);
+  background: var(--white);
+  color: var(--blue-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.loanTypeBannerLabel { font-size: 14px; font-weight: 600; color: var(--ink); }
+
+.loanTypeBannerModel { font-size: 12px; color: var(--blue-deep); margin-top: 2px; }
+
+.changeLoanType {
+  background: var(--white);
+  border: 1px solid rgba(0,174,239,0.3);
+  color: var(--blue-deep);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.changeLoanType:hover { background: var(--ink-8); }
+
+/* ── Stepper done state ───────────────────────────────────── */
+.stepperDotDone {
+  background: var(--success-bg) !important;
+  color: var(--success-txt) !important;
+  border: 1px solid var(--success-bd) !important;
+}
+
+.page {
+  position: relative;
+}
+
+.signOutBtn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  z-index: 20;
+  background: white;
+  border: 1px solid #00AEEF;
+  color: #00AEEF;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.signOutBtn:hover {
+  background: #00AEEF;
+  color: white;
+}

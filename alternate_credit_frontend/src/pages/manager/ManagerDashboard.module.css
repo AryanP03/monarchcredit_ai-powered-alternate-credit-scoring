@@ -1,0 +1,322 @@
+.page {
+  display: flex;
+  min-height: 100vh;
+  background: var(--ink-8);
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ── Top bar ──────────────────────────────────────────────── */
+.topBar {
+  background: var(--white);
+  border-bottom: 1px solid var(--ink-6);
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.topTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.3px;
+  margin-bottom: 2px;
+}
+
+.topSub {
+  font-size: 12px;
+  color: var(--ink-4);
+}
+
+.topActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modelPill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 99px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid;
+}
+
+.modelPillGreen {
+  background: var(--success-bg);
+  color: var(--success-txt);
+  border-color: var(--success-bd);
+}
+
+.modelPillRed {
+  background: var(--danger-bg);
+  color: var(--danger-txt);
+  border-color: var(--danger-bd);
+}
+
+.modelPillDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  animation: pulse 2.5s ease infinite;
+}
+
+.dotGreen { background: var(--success); }
+.dotRed   { background: var(--danger);  }
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+.spinner {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border: 2px solid var(--ink-5);
+  border-top-color: var(--ink-3);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Body ─────────────────────────────────────────────────── */
+.body {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── KPI row ──────────────────────────────────────────────── */
+.kpiRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.kpiCard {
+  background: var(--white);
+  border: 1px solid var(--ink-6);
+  border-radius: var(--r-xl);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kpiLabel {
+  font-size: 11px;
+  color: var(--ink-4);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-weight: 500;
+}
+
+.kpiValue {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.kpiSub {
+  font-size: 12px;
+  color: var(--ink-4);
+}
+
+/* ── Tabs ─────────────────────────────────────────────────── */
+.tabRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tabs {
+  display: flex;
+  background: var(--ink-7);
+  border-radius: var(--r-lg);
+  padding: 3px;
+  gap: 3px;
+}
+
+.tab {
+  padding: 7px 16px;
+  border: none;
+  background: transparent;
+  border-radius: var(--r-md);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.tabActive {
+  background: var(--white);
+  color: var(--ink);
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+}
+
+.tabBadge {
+  background: var(--blue);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 99px;
+  padding: 1px 7px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ── Table ────────────────────────────────────────────────── */
+.tableWrap {
+  background: var(--white);
+  border: 1px solid var(--ink-6);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+}
+
+.tableHead,
+.tableHeadPrev {
+  display: grid;
+  padding: 11px 20px;
+  background: var(--ink-8);
+  border-bottom: 1px solid var(--ink-6);
+}
+
+.tableHead {
+  grid-template-columns: 1.8fr 1.1fr 1fr 1.1fr 0.8fr 0.6fr;
+}
+
+.tableHeadPrev {
+  grid-template-columns: 1.8fr 1.1fr 1fr 1fr 0.8fr 0.8fr;
+}
+
+.tableHead span,
+.tableHeadPrev span {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-4);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 1.8fr 1.1fr 1fr 1.1fr 0.8fr 0.6fr;
+  padding: 13px 20px;
+  border-bottom: 1px solid var(--ink-7);
+  align-items: center;
+  transition: background 0.12s;
+}
+
+.tableRow:last-child { border-bottom: none; }
+.tableRow:hover { background: var(--ink-8); }
+
+.tableRowPrev {
+  grid-template-columns: 1.8fr 1.1fr 1fr 1fr 0.8fr 0.8fr;
+}
+
+.customerCell {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.customerAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--blue-light);
+  color: var(--blue-deep);
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.customerName {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.customerMeta {
+  font-size: 11px;
+  color: var(--ink-4);
+  margin-top: 2px;
+}
+
+.appId {
+  font-size: 12px;
+  color: var(--ink-3);
+  font-weight: 400;
+}
+
+.amount {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.timeCell {
+  font-size: 12px;
+  color: var(--ink-4);
+}
+
+.rateCell {
+  font-size: 13px;
+  color: var(--ink-2);
+  font-weight: 500;
+}
+
+.reviewBtn {
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--blue);
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+
+.reviewBtn:hover { color: var(--blue-deep); }
+
+/* Empty state */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 52px;
+  color: var(--ink-4);
+  font-size: 14px;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .kpiRow { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .body { padding: 16px; }
+  .topBar { padding: 14px 16px; }
+  .kpiRow { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+}

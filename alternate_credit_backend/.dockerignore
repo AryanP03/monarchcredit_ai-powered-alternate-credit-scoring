@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual env (BIGGEST PROBLEM)
+.venv/
+venv/
+
+# Data (VERY BIG)
+data/
+datasets/
+*.csv
+*.parquet
+
+# Models (VERY BIG)
+*.pkl
+*.joblib
+*.bin
+
+# Reports
+reports/
+
+# Git
+.git/
+.gitignore
+
+# OS
+.DS_Store
+Thumbs.db
+
+*.log
+*.tmp
+.env
