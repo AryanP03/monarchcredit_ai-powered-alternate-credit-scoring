@@ -254,3 +254,25 @@ uvicorn app.main:app --reload
 cd ../alternate_credi_frontend
 npm install
 npm run dev
+
+```
+
+---
+## 📄 License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+This project is licensed under the **MIT License** © 2026 Aryan Phanse.
+
+See the full license here: [LICENSE](./LICENSE)
+
+---
+
+### 📌 Summary
+
+| Permissions | Conditions | Limitations |
+| :--- | :--- | :--- |
+| ✅ Commercial use | ℹ️ License and copyright notice | ❌ Liability |
+| ✅ Modification | ℹ️ Include original license | ❌ Warranty |
+| ✅ Distribution | | |
+| ✅ Private use | | |
