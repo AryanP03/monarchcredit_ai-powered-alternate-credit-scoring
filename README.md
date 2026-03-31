@@ -239,23 +239,18 @@ Kafka acts as the backbone of the system, enabling asynchronous processing, loos
 
 ## 🚀 How to Run
 
-### 1. Clone Repository
 ```bash
 git clone https://github.com/AryanP03/monarchcredit_ai-powered-alternate-credit-scoring.git
 cd monarchcredit
 
-### 2. Start Kafka
-```bash
 cd backend
 docker compose up -d
 
-### 3. Backend Setup
-'''bash
+
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 
-### 4. frontend setup
-'''bash
+
 cd ../frontend
 npm install
 npm run dev
