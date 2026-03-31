@@ -243,7 +243,7 @@ Kafka acts as the backbone of the system, enabling asynchronous processing, loos
 git clone https://github.com/AryanP03/monarchcredit_ai-powered-alternate-credit-scoring.git
 cd monarchcredit
 
-cd backend
+cd alternate_credit_backend
 docker compose up -d
 
 
@@ -251,6 +251,6 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 
 
-cd ../frontend
+cd ../alternate_credi_frontend
 npm install
 npm run dev
